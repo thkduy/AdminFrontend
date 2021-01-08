@@ -12,6 +12,9 @@ import Login from './Layout/Login.js';
 
 import DetailUser from './Layout/DetailUser';
 
+import HistoryGame from './Layout/HistoryGame';
+import HistoryGameOfUser from './Layout/HistoryGameUser';
+
 import MenuAppBar from './components/AppBar.js';
 
 
@@ -24,7 +27,9 @@ export default function App() {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
-                        <Route path="/view-detail" component={DetailUser}/>
+                        <Route path="/view-detail-user" search="?userid=id" component={DetailUser}/>
+                        <Route path="/history-game" component={HistoryGame}/>
+                        <Route path="/history-game-user" search="?userid=id" component={HistoryGameOfUser}/>
                     </Switch>
                 </div>
             </ContextProvider>       

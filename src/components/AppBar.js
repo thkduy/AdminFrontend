@@ -8,8 +8,8 @@ import {
     MenuItem,
     Menu,
     Button,
+    Box
 } from "@material-ui/core";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import { useHistory } from "react-router-dom";
 import authUserContext  from '../context/context';
 
@@ -21,8 +21,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
-    cursor: 'pointer'
+    cursor: 'pointer',
+  },
+  menuItem: {
+    cursor: 'pointer',
+    marginLeft:20,
   }
 }));
 
@@ -68,13 +71,24 @@ export default function MenuAppBar() {
     history.push("/");
   }
 
+  const handleHistoryClick = () => history.push("/history-game");
+
   return (
-    <div className={classes.root} style={{ marginBottom: 20 }}>
-      <AppBar position="static" >
+      <AppBar position="static" style={{ marginBottom: 20 }}>
         <Toolbar>
-          <Typography onClick={handleClick} variant="h6" className={classes.title}>
-            CaroOnline
-          </Typography>
+        <Box display="flex" justifyContent="space-between" width="100%">
+          <Box display="flex" flexDirection="row" alignItems="center" width="50%">
+            <Typography onClick={handleClick} variant="h6" className={classes.title}>
+              CaroOnline
+            </Typography>
+            <Typography onClick={handleClick} variant="h6" color="secondary" className={classes.menuItem}>
+              Dashboard
+            </Typography>
+            <Typography onClick={handleHistoryClick} variant="h6" color="secondary" className={classes.menuItem}>
+              Game History
+            </Typography>
+          </Box>
+
           {auth ? (
             <div>
               <IconButton
@@ -85,9 +99,8 @@ export default function MenuAppBar() {
                 color="inherit"
                 
               >
-                <AccountCircle />
-                <Typography style={{paddingLeft: 5}}>
-                  {name}
+                <Typography variant="h6" style={{paddingLeft: 5}}>
+                  Hello {name}
                 </Typography>
               </IconButton>
               
@@ -112,8 +125,12 @@ export default function MenuAppBar() {
           ) : (
             <Button variant="contained" color="secondary" onClick={handleLogin}>Login</Button>
           )}
+        </Box>
+          
+          
+
+          
         </Toolbar>
       </AppBar>
-    </div>
   );
 }

@@ -1,4 +1,5 @@
 import { React, useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
     Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Container, Box, Avatar,
     Grid, IconButton, TextField, FormControl, Select, Tooltip
@@ -23,6 +24,7 @@ const useStyles = makeStyles({
 
 export default function Home() {
     const classes = useStyles();
+    const history = useHistory();
     const { isAuthenticated, token } = useContext(authUserContext);
     const [data, setData] = useState([]);
     const [result, setResult] = useState([]);
@@ -100,6 +102,16 @@ export default function Home() {
             setResult(newDataArray);
         }
     }
+
+    function handleViewDetail(id){
+        history.push(`/view-detail-user?userid=${id}`);
+    }
+
+    function handleViewHistory(id){
+        history.push(`/history-game-user?userid=${id}`);
+    }
+
+    
     
     return (
         <>
@@ -149,17 +161,17 @@ export default function Home() {
                                         </TableCell>
                                         <TableCell align="center">
                                             <Tooltip title="View detail" arrow>
-                                                <IconButton aria-label="view-detail">
+                                                <IconButton onClick={()=>handleViewDetail(user._id)}>
                                                     <VisibilityIcon style={{color:'#0000FF'}}/>
                                                 </IconButton>
                                             </Tooltip>
                                             <Tooltip title="View game history" arrow>
-                                                <IconButton>
+                                                <IconButton onClick={()=>handleViewHistory(user._id)}>
                                                     <GamesIcon style={{color:'#ADD8E6'}}/>
                                                 </IconButton>
                                             </Tooltip>
                                             {user.isDelete ? null : 
-                                            <Tooltip title="Ban account" arrow>
+                                            <Tooltip title="Ban user" arrow>
                                                 <IconButton onClick={()=>handleLockAcc(user._id)}>
                                                     <HighlightOffIcon color="error" />
                                                 </IconButton>
