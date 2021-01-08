@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar() {
   const {
-    isAuthenticated,
     checkAuthenticated,
     signIn,
     setNewToken,
@@ -52,7 +51,7 @@ export default function MenuAppBar() {
   const handleLogout = () => {
     setAnchorEl(null);
 
-    checkAuthenticated(!isAuthenticated);
+    checkAuthenticated(false);
     signIn([]);
     setNewToken("");
     localStorage.removeItem("user");

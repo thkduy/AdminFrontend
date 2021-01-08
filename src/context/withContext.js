@@ -26,8 +26,8 @@ const UserContext = (props) => {
     setUser(user);
   };
 
-  const checkAuthenticated = (isAuthenticated) => {
-    setIsAuthenticated(isAuthenticated);
+  const checkAuthenticated = (value) => {
+    setIsAuthenticated(value);
   };
 
   return (

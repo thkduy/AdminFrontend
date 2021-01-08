@@ -26,7 +26,6 @@ import {login} from '../api/index';
 
 export default function Login(){
     const {
-        isAuthenticated,
         checkAuthenticated,
         signIn,
         setNewToken,
@@ -68,7 +67,7 @@ export default function Login(){
         const res = await response.json();
         if(response.ok){
             const user = jwt.decode(res.token);
-            checkAuthenticated(!isAuthenticated);
+            checkAuthenticated(true);
             signIn(user);
             setNewToken(res.token);
             localStorage.setItem("user", JSON.stringify(user));
@@ -162,16 +161,15 @@ export default function Login(){
                         justify="center"
                         style={{ marginTop: 20, marginBottom: 10 }}
                     >
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleLogin}
-                                disabled={!email.trim().length > 0 || !values.password.trim().length > 0 }
-                            >
-                                Login
-                            </Button>
-                        </Grid>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleLogin}
+                            disabled={!email.trim().length > 0 || !values.password.trim().length > 0 }
+                            style={{ width: '50%', marginBottom:20 }}
+                        >
+                            Login
+                        </Button>
                     </Grid>
                 </Box>
             </Paper>
