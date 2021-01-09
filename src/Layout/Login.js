@@ -1,5 +1,5 @@
 import {React, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import authUserContext  from '../context/context';
 import jwt from "jsonwebtoken";
 import {
@@ -30,6 +30,7 @@ export default function Login(){
         signIn,
         setNewToken,
     } = useContext(authUserContext);
+    let location = useLocation();
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
@@ -71,9 +72,10 @@ export default function Login(){
             signIn(user);
             setNewToken(res.token);
             localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("isAuthenticated", JSON.stringify(true));
-            localStorage.setItem("token", JSON.stringify(res.token));
-            history.push('/');
+            localStorage.setItem("isAuthenticated", true);
+            localStorage.setItem("token", res.token);
+            let { from } = location.state || { from: { pathname: "/" } };
+            history.push(from);
         }else if (response.status === 400) {
             setError(res.message);
             return;

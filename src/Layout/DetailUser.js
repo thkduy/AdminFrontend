@@ -35,10 +35,9 @@ export default function DetailUser() {
 
     useEffect(() => {
         async function fetchData() {
-            const accessToken = JSON.parse(token);
             let params = new URLSearchParams(window.location.search);
             const id = params.get('userid');
-            const response = await getUser(accessToken, id);
+            const response = await getUser(token, id);
             const res = await response.json();
             if (response.ok) {
                 const data = res.data;

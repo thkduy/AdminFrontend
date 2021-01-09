@@ -19,16 +19,15 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Home() {
+export default function HistoryGame() {
     const classes = useStyles();
     //const history = useHistory();
     const { token } = useContext(authUserContext);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            const accessToken = JSON.parse(token);
-            const response = await getAllRoom(accessToken);
+            const response = await getAllRoom(token);
             const res = await response.json();
             if (response.ok) {
                 setData(res.data);
@@ -40,6 +39,7 @@ export default function Home() {
     return (
         <Container maxWidth="lg">
             <Typography variant="h4" style={{marginBottom:20}}>Game history</Typography>
+            {data && data.length === 0 ? <Typography variant="h4">None match was found</Typography>:
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHead}>
@@ -57,7 +57,6 @@ export default function Home() {
                             <TableCell component="th" scope="row" align="center">
                                     {index + 1}
                                 </TableCell>
-                                
                                 <TableCell>
                                     <Grid container direction="row" alignItems="center" > 
                                         <Box display="flex" justifyContent="center" alignItems="center" mr={2}>
@@ -85,8 +84,7 @@ export default function Home() {
                                     {game.result === 1 ? <Avatar src={game.player1.avatar} />:null}
                                     {game.result === 2 ? <Avatar src={game.player2.avatar} />:null}
                                     {game.result === 0 ? <Avatar variant="rounded" style={{width:100}}>DRAW</Avatar>:null}
-                                    </Box>
-                                    
+                                    </Box>   
                                 </TableCell>
                                 <TableCell align="center">
                                     <Tooltip title="View game messages" arrow>
@@ -99,7 +97,7 @@ export default function Home() {
                         )) : null}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer>}
         </Container> 
     );
 }

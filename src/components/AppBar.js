@@ -60,11 +60,10 @@ export default function MenuAppBar() {
     localStorage.removeItem("user");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("token");
-    history.push("/");
   };
 
   const handleLogin = () => {
-    history.push("/login");
+    history.push('/login');
   };
 
   const handleClick = () => {
