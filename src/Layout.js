@@ -17,6 +17,8 @@ import HistoryGameOfUser from './Layout/HistoryGameUser';
 
 import MenuAppBar from './components/AppBar.js';
 
+import Error404 from './Layout/Error';
+
 import authUserContext from './context/context';
 
 export default function App() {
@@ -38,6 +40,7 @@ export default function App() {
                 <Route path="/history-game-user" search="?userid=id">
                     {isAuthenticated ? <HistoryGameOfUser/> : <Redirect to={{ pathname: "/login", state: { from: '/' }}}/>}
                 </Route>
+                <Route component={Error404}/>
             </Switch>
         </div>
     );
