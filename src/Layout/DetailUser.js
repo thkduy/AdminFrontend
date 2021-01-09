@@ -31,7 +31,12 @@ export default function DetailUser() {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [rank, setRank] = useState('');
-    const { token } = useContext(authUserContext);
+    const { 
+        token,
+        checkAuthenticated,
+        signIn,
+        setNewToken
+    } = useContext(authUserContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -46,10 +51,17 @@ export default function DetailUser() {
                 else if (data.point < 1500 && data.point >= 500) setRank('Platinum 🌟');
                 else setRank('Master 💎');
                 setUser(data);
+            } else if(response.status === 401){
+                checkAuthenticated(false);
+                signIn([]);
+                setNewToken("");
+                localStorage.removeItem("user");
+                localStorage.removeItem("isAuthenticated");
+                localStorage.removeItem("token");
             }
         }
         fetchData();
-    }, [token]);
+    }, [token, checkAuthenticated, signIn, setNewToken]);
     return (
         <>
             {user ?

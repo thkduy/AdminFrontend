@@ -18,7 +18,6 @@ const LightTooltip = withStyles((theme) => ({
 }))(Tooltip);
 
 export default function ChatBox(props) {
-    console.log(props);
     const content = props.content;
     const { name, avatar } = props.owner;
 

@@ -25,7 +25,12 @@ const useStyles = makeStyles({
 export default function Home() {
     const classes = useStyles();
     const history = useHistory();
-    const { token } = useContext(authUserContext);
+    const { 
+        token,
+        checkAuthenticated,
+        signIn,
+        setNewToken
+    } = useContext(authUserContext);
     const [data, setData] = useState([]);
     const [result, setResult] = useState([]);
     const [search, setSearch] = useState("");
@@ -38,10 +43,17 @@ export default function Home() {
             if (response.ok) {
                 setData(res.data);
                 setResult(res.data);
+            } else if(response.status === 401){
+                checkAuthenticated(false);
+                signIn([]);
+                setNewToken("");
+                localStorage.removeItem("user");
+                localStorage.removeItem("isAuthenticated");
+                localStorage.removeItem("token");
             }
         }
         fetchData();
-    }, [token]);
+    }, [token, checkAuthenticated, signIn, setNewToken]);
 
     const handleChangecbb = (event) => {
         setTypeSearch(event.target.value);

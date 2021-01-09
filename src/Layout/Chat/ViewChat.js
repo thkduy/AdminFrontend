@@ -9,7 +9,12 @@ import { getChatRoom } from '../../api';
 import authUserContext from '../../context/context';
 
 export default function ViewChat() {
-    const { token } = useContext(authUserContext);
+    const { 
+        token,
+        checkAuthenticated,
+        signIn,
+        setNewToken
+    } = useContext(authUserContext);
     const [listMessage, setListMessage] = useState(null);
 
     useEffect(() => {
@@ -20,10 +25,17 @@ export default function ViewChat() {
             const res = await response.json();
             if (response.ok) {
                 setListMessage(res.data);
+            } else if(response.status === 401){
+                checkAuthenticated(false);
+                signIn([]);
+                setNewToken("");
+                localStorage.removeItem("user");
+                localStorage.removeItem("isAuthenticated");
+                localStorage.removeItem("token");
             }
         }
         fetchData();
-    }, [token]);
+    }, [token, checkAuthenticated, signIn, setNewToken]);
 
     return (
         <Container maxWidth="sm">

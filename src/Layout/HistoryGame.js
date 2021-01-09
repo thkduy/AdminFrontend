@@ -22,7 +22,12 @@ const useStyles = makeStyles({
 export default function HistoryGame() {
     const classes = useStyles();
     const history = useHistory();
-    const { token } = useContext(authUserContext);
+    const { 
+        token,
+        checkAuthenticated,
+        signIn,
+        setNewToken
+    } = useContext(authUserContext);
     const [data, setData] = useState(null);
 
     useEffect(() => {
@@ -31,10 +36,17 @@ export default function HistoryGame() {
             const res = await response.json();
             if (response.ok) {
                 setData(res.data);
+            } else if(response.status === 401){
+                checkAuthenticated(false);
+                signIn([]);
+                setNewToken("");
+                localStorage.removeItem("user");
+                localStorage.removeItem("isAuthenticated");
+                localStorage.removeItem("token");
             }
         }
         fetchData();
-    }, [token]);
+    }, [token, checkAuthenticated, signIn, setNewToken]);
 
     function handleViewChat(id){
         history.push(`/view-chat?roomid=${id}`);
