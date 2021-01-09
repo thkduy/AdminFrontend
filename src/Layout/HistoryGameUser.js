@@ -1,5 +1,5 @@
 import { React, useState, useContext, useEffect } from "react";
-//import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
     Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Container, Box, Avatar,
     Grid, IconButton, Tooltip
@@ -21,8 +21,9 @@ const useStyles = makeStyles({
 
 export default function HistoryGameUser() {
     const classes = useStyles();
+    const history = useHistory();
     const { token } = useContext(authUserContext);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -36,6 +37,10 @@ export default function HistoryGameUser() {
         }
         fetchData();
     }, [token]);
+
+    function handleViewChat(id){
+        history.push(`/view-chat?roomid=${id}`);
+    }
     
     return (
         <Container maxWidth="lg">
@@ -89,7 +94,7 @@ export default function HistoryGameUser() {
                                 </TableCell>
                                 <TableCell align="center">
                                     <Tooltip title="View game messages" arrow>
-                                        <IconButton>
+                                        <IconButton onClick={() => handleViewChat(game.roomId)}>
                                             <VisibilityIcon style={{color:'#0000FF'}}/>
                                         </IconButton>
                                     </Tooltip>

@@ -15,6 +15,8 @@ import DetailUser from './Layout/DetailUser';
 import HistoryGame from './Layout/HistoryGame';
 import HistoryGameOfUser from './Layout/HistoryGameUser';
 
+import ViewChat from './Layout/Chat/ViewChat';
+
 import MenuAppBar from './components/AppBar.js';
 
 import Error404 from './Layout/Error';
@@ -39,6 +41,9 @@ export default function App() {
                 </Route>
                 <Route path="/history-game-user" search="?userid=id">
                     {isAuthenticated ? <HistoryGameOfUser/> : <Redirect to={{ pathname: "/login", state: { from: '/' }}}/>}
+                </Route>
+                <Route path="/view-chat" search="?roomid=id">
+                    {isAuthenticated ? <ViewChat/> : <Redirect to={{ pathname: "/login", state: { from: '/' }}}/>}
                 </Route>
                 <Route component={Error404}/>
             </Switch>

@@ -108,3 +108,21 @@ export async function getAllGameOfUser(token, id) {
     const response = await fetch(api_url + `/admin/do/get-all-room-by-id?id=${id}`, options);
     return response;
 }
+
+export async function getChatRoom(token, id) {
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        redirect: 'follow',
+        referrer: 'no-referrer',
+    }
+
+    const response = await fetch(api_url + `/admin/do/get-chat-room-by-id?id=${id}`, options);
+    return response;
+}
