@@ -1,17 +1,17 @@
-import {React, useState, useContext} from "react";
+import { React, useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    AppBar,
-    Toolbar,
-    Typography,
-    IconButton,
-    MenuItem,
-    Menu,
-    Button,
-    Box
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  MenuItem,
+  Menu,
+  Button,
+  Box
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import authUserContext  from '../context/context';
+import authUserContext from '../context/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,12 +25,13 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItem: {
     cursor: 'pointer',
-    marginLeft:20,
+    marginLeft: 20,
   }
 }));
 
 export default function MenuAppBar() {
   const {
+    isAuthenticated,
     checkAuthenticated,
     signIn,
     setNewToken,
@@ -73,19 +74,20 @@ export default function MenuAppBar() {
   const handleHistoryClick = () => history.push("/history-game");
 
   return (
-      <AppBar position="static" style={{ marginBottom: 20 }}>
-        <Toolbar>
+    <AppBar position="static" style={{ marginBottom: 20 }}>
+      <Toolbar>
         <Box display="flex" justifyContent="space-between" width="100%">
           <Box display="flex" flexDirection="row" alignItems="center" width="50%">
             <Typography onClick={handleClick} variant="h6" className={classes.title}>
               CaroOnline
             </Typography>
-            <Typography onClick={handleClick} variant="h6" color="secondary" className={classes.menuItem}>
+            {isAuthenticated ? <><Typography onClick={handleClick} variant="h6" color="secondary" className={classes.menuItem}>
               Dashboard
             </Typography>
-            <Typography onClick={handleHistoryClick} variant="h6" color="secondary" className={classes.menuItem}>
-              Game History
-            </Typography>
+              <Typography onClick={handleHistoryClick} variant="h6" color="secondary" className={classes.menuItem}>
+                Game History
+            </Typography></> : null}
+
           </Box>
 
           {auth ? (
@@ -96,13 +98,13 @@ export default function MenuAppBar() {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
-                
+
               >
-                <Typography variant="h6" style={{paddingLeft: 5}}>
+                <Typography variant="h6" style={{ paddingLeft: 5 }}>
                   Hello {name}
                 </Typography>
               </IconButton>
-              
+
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -122,14 +124,10 @@ export default function MenuAppBar() {
               </Menu>
             </div>
           ) : (
-            <Button variant="contained" color="secondary" onClick={handleLogin}>Login</Button>
-          )}
+              <Button variant="contained" color="secondary" onClick={handleLogin}>Login</Button>
+            )}
         </Box>
-          
-          
-
-          
-        </Toolbar>
-      </AppBar>
+      </Toolbar>
+    </AppBar>
   );
 }
