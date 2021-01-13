@@ -71,6 +71,7 @@ export default function DetailUser() {
                             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                                 <Avatar variant="rounded" src={user.avatar} className={classes.avatar} />
                                 <Typography variant="h4">{user.name}</Typography>
+                                <Typography>Created at {user.createdDate.substring(0, 10)}</Typography>
                             </Box>
                             <Box display="flex" flexDirection="column">
                                 <Box display="flex" flexDirection="column" m={1}>
