@@ -30,7 +30,7 @@ export default function App() {
             <MenuAppBar/>
             <Switch>
                 <Route exact path="/">
-                    {isAuthenticated ? <Home/> : <Typography variant="h3">admin Caro online 🔥</Typography>}
+                    {isAuthenticated ? <Home/> : <Redirect to={{ pathname: "/login", state: { from: '/' }}}/>}
                 </Route>
                 <Route path="/login" component={Login} />
                 <Route path="/view-detail-user" search="?userid=id">
