@@ -2,7 +2,7 @@ import { React, useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import {
     Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Container, Box, Avatar,
-    Grid, IconButton, TextField, FormControl, Select, Tooltip
+    Grid, IconButton, TextField, FormControl, Select, Tooltip, CircularProgress 
 } from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -31,8 +31,8 @@ export default function Home() {
         signIn,
         setNewToken
     } = useContext(authUserContext);
-    const [data, setData] = useState([]);
-    const [result, setResult] = useState([]);
+    const [data, setData] = useState(null);
+    const [result, setResult] = useState(null);
     const [search, setSearch] = useState("");
     const [typeSearch, setTypeSearch] = useState('Email');
 
@@ -135,6 +135,7 @@ export default function Home() {
                     </FormControl>
                 </Box>
             </Box>
+            {result ? 
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHead}>
@@ -147,7 +148,7 @@ export default function Home() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {result && result.length > 0 ? result.map((user, index) => (
+                        {result.length > 0 ? result.map((user, index) => (
                             <TableRow key={index}>
                                 <TableCell component="th" scope="row" align="center">
                                     {index + 1}
@@ -184,10 +185,11 @@ export default function Home() {
                                         </Tooltip>}
                                 </TableCell>
                             </TableRow>
-                        )) : null}
+                        )) :null}
                     </TableBody>
                 </Table>
             </TableContainer>
+            :<Box display="flex" justifyContent="center" mt={4}><CircularProgress /></Box>}
         </Container>
     );
 }

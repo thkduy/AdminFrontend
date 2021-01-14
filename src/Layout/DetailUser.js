@@ -4,7 +4,8 @@ import {
     Container,
     Paper,
     Avatar,
-    Box
+    Box,
+    CircularProgress
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import authUserContext from '../context/context';
@@ -94,7 +95,7 @@ export default function DetailUser() {
                         </Box>
                     </Paper>
                 </Container>
-                : null}
+                : <Box display="flex" justifyContent="center" mt={4}><CircularProgress /></Box>}
         </>
     );
 }

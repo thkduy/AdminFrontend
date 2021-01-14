@@ -2,7 +2,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
     Container,
-    Paper
+    Paper,
+    Box,
+    CircularProgress
 } from "@material-ui/core";
 import ChatBox from './ChatBox';
 import { getChatRoom } from '../../api';
@@ -42,7 +44,7 @@ export default function ViewChat() {
             <Paper style={{height: '600px', overflowY: 'scroll'}}>
                 {listMessage && listMessage.length > 0 ? 
                     listMessage.map((game)=> game.messages.map((message, index) => <ChatBox key={index} {...message} />))
-                :null}
+                :<Box display="flex" justifyContent="center" mt={4}><CircularProgress /></Box>}
             </Paper>
         </Container>
     );

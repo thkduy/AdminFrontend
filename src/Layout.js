@@ -5,7 +5,6 @@ import {
     Redirect
 } from "react-router-dom";
 
-import { Typography } from "@material-ui/core";
 import Home from './Layout/Home.js';
 
 import Login from './Layout/Login.js';

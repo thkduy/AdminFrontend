@@ -2,7 +2,7 @@ import { React, useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import {
     Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Container, Box, Avatar,
-    Grid, IconButton, Tooltip
+    Grid, IconButton, Tooltip, CircularProgress
 } from "@material-ui/core";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { makeStyles } from '@material-ui/core/styles';
@@ -57,7 +57,8 @@ export default function HistoryGameUser() {
     return (
         <Container maxWidth="lg">
             <Typography variant="h4" style={{marginBottom:20}}>Game history of user</Typography>
-            {data && data.length === 0 ? <Typography variant="h4">None match was found</Typography>:
+            {data ? 
+            data.length === 0 ? <Typography variant="h4">None match was found</Typography>:
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHead}>
@@ -115,7 +116,7 @@ export default function HistoryGameUser() {
                         )) : null}
                     </TableBody>
                 </Table>
-            </TableContainer>}
+            </TableContainer>: <Box display="flex" justifyContent="center" mt={4}><CircularProgress /></Box>}
         </Container> 
     );
 }
