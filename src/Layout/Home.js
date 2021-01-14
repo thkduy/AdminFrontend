@@ -92,8 +92,7 @@ export default function Home() {
     } 
 
     async function handleLockAcc(id) {
-        const accessToken = JSON.parse(token);
-        const response = await lockAccount(accessToken, id);
+        const response = await lockAccount(token, id);
         const res = await response.json();
         if (response.ok) {
             const newDataArray = [...result];
